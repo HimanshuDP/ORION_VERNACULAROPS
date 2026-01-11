@@ -2,7 +2,13 @@ import { GoogleGenAI, Type, Schema } from "@google/genai";
 import { BusinessState, InsightType } from "../types";
 import Papa from "papaparse";
 
-const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+
+if (!apiKey) {
+  console.error("❌ MISSING API KEY: Please set VITE_GEMINI_API_KEY in your deployment environment.");
+}
+
+const ai = new GoogleGenAI({ apiKey: apiKey || "MISSING_KEY" });
 const modelId = "gemini-3-flash-preview";
 
 // Define schema for Business Intelligence Response
